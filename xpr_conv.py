@@ -107,9 +107,12 @@ def write_hdlcc(files, fstream):
     write_header(fstream)
     for f in files:
         ext = f['path'].split('.')[-1].lower()
-        # hdlcc currently supports only VHDL files so we can ignore others
         if ext in ('vhd', 'vhdl'):
             ftype = 'vhdl'
+        elif ext in ('v',):
+            ftype = 'verilog'
+        elif ext in ('sv',):
+            ftype = 'systemverilog'
         else:
             continue
         fstream.write(' '.join((ftype, f['lib'], f['path'])))
@@ -138,4 +141,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
